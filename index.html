@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lavrans's Rabbit - Find Boble</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: #d1f7c4;
+      overflow: hidden;
+    }
+
+    #garden {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      background: #9bd48f;
+      overflow: hidden;
+    }
+
+    #rabbit {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      background: pink;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    #taskBox {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      padding: 10px 15px;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 10px;
+      font-size: 18px;
+      max-width: 300px;
+    }
+
+    #cat {
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      background: gray;
+      border-radius: 50%;
+      display: none;
+    }
+
+    #message {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: white;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-size: 22px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="garden">
+    <div id="taskBox">Task 1: Find Boble somewhere in Lavrans's garden!</div>
+    <div id="rabbit"></div>
+    <div id="cat"></div>
+    <div id="message"></div>
+  </div>
+
+  <script>
+    const rabbit = document.getElementById('rabbit');
+    const taskBox = document.getElementById('taskBox');
+    const message = document.getElementById('message');
+    const cat = document.getElementById('cat');
+
+    let task = 1;
+
+    function moveRabbit() {
+      rabbit.style.left = Math.random() * (window.innerWidth - 80) + 'px';
+      rabbit.style.top = Math.random() * (window.innerHeight - 80) + 'px';
+    }
+
+    moveRabbit();
+
+    rabbit.addEventListener('click', () => {
+      if (task === 1) {
+        task = 2;
+        taskBox.textContent = "Task 2: Catch Boble again, he's too fast!";
+        moveRabbit();
+      } else if (task === 2) {
+        task = 3;
+        taskBox.textContent = "Task 3: Almost there! One last catch!";
+        moveRabbit();
+      } else if (task === 3) {
+        taskBox.textContent = "You caught Boble! But wait...";
+        triggerCatEvent();
+      }
+    });
+
+    function triggerCatEvent() {
+      setTimeout(() => {
+        cat.style.display = 'block';
+        cat.style.left = (window.innerWidth / 2 - 60) + 'px';
+        cat.style.top = (window.innerHeight / 2 - 60) + 'px';
+
+        message.textContent = "A cat suddenly snatched Boble! Lavrans is not happy...";
+        message.style.display = 'block';
+      }, 1500);
+    }
+  </script>
+</body>
+</html>
